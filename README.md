@@ -13,7 +13,25 @@
    git clone https://github.com/Ravierin/bybit-balance-checker.git
    cd bybit-balance-checker
    ```
-2. **Конфигурация**: измените или создайте файл `config.txt` в формате JSON, где указываете `apiKey`, `apiSecret` и `account` для каждого аккаунта Bybit.
+2. **Установка Go**: Убедитесь, что у вас установлен Go. Если Go не установлен, следуйте инструкциям ниже для вашей операционной системы.
+
+   ### Linux:
+
+   Установите Go через пакетный менеджер вашей системы. Например, для Ubuntu:
+   ```bash
+   sudo apt install golang
+   ```
+   ### Для macOS:
+
+   Установите Go через Homebrew:
+   ```bash
+   brew install go
+   ```
+   #### Для Windows:
+
+   Скачайте установочный файл с [официального сайта Go](https://go.dev/dl/) и следуйте инструкциям для установки.
+   
+3. **Конфигурация**: измените или создайте файл `config.txt` в формате JSON, где указываете `apiKey`, `apiSecret` и `account` для каждого аккаунта Bybit.
 
    Пример `config.txt`:
    ```json
@@ -22,7 +40,7 @@
      {"apiKey": "YOUR_API_KEY", "apiSecret": "YOUR_SECRET_KEY", "account": "example2@example.com"}
    ]
    
-3. **Запуск**: выполните следующие команды для сборки и запуска проекта:
+4. **Запуск**: выполните следующие команды для сборки и запуска проекта:
    ```bash
    go build -o bybit-balance-checker main.go 
    ./bybit-balance-checker
@@ -36,23 +54,3 @@ Account: "example1@example.com":
    - BTC: 1.2345
    - ETH: 5.6789
 
-### Инструкции по сборке для разных ОС
-
-#### Для Windows:
-
-Для сборки под Windows:
-   ```bash
-   GOOS=windows GOARCH=amd64 go build -o bybit-balance-checker.exe main.go
-   ```
-### Для Linux:
-
-Для сборки под Linux:
-   ```bash
-   GOOS=linux GOARCH=amd64 go build -o bybit-balance-checker main.go
-   ```
-### Для macOS:
-
-Для сборки под macOS:
-   ```bash
-   GOOS=darwin GOARCH=amd64 go build -o bybit-balance-checker main.go
-   ```
