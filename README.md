@@ -9,10 +9,10 @@
 ### Шаги для запуска
 
 1. **Клонирование репозитория**: сначала склонируйте репозиторий на ваш локальный компьютер:
-```bash
-git clone https://github.com/Ravierin/bybit-balance-checker.git
-cd bybit-balance-checker
-```
+   ```bash
+   git clone https://github.com/Ravierin/bybit-balance-checker.git
+   cd bybit-balance-checker
+   ```
 2. **Конфигурация**: измените или создайте файл `config.txt` в формате JSON, где указываете `apiKey`, `apiSecret` и `account` для каждого аккаунта Bybit.
 
    Пример `config.txt`:
@@ -23,10 +23,10 @@ cd bybit-balance-checker
    ]
    
 3. **Запуск**: выполните следующие команды для сборки и запуска проекта:
-```bash
-go build -o bybit-balance-checker main.go 
-./bybit-balance-checker
-```
+   ```bash
+   go build -o bybit-balance-checker main.go 
+   ./bybit-balance-checker
+   ```
 #### Запись результатов
 
 Результаты проверки балансов будут сохранены в файл `output.txt`, который будет создан после выполнения программы.
@@ -41,21 +41,18 @@ Account: "example1@example.com":
 #### Для Windows:
 
 Для сборки под Windows:
-
-```bash
-GOOS=windows GOARCH=amd64 go build -o bybit-balance-checker.exe main.go
-```
-
+   ```bash
+   GOOS=windows GOARCH=amd64 go build -o bybit-balance-checker.exe main.go
+   ```
 ### Для Linux:
 
 Для сборки под Linux:
-```bash
-GOOS=linux GOARCH=amd64 go build -o bybit-balance-checker main.go
-```
-
+   ```bash
+   GOOS=linux GOARCH=amd64 go build -o bybit-balance-checker main.go
+   ```
 ### Для macOS:
 
 Для сборки под macOS:
-```bash
-GOOS=darwin GOARCH=amd64 go build -o bybit-balance-checker main.go
-```
+   ```bash
+   GOOS=darwin GOARCH=amd64 go build -o bybit-balance-checker main.go
+   ```
