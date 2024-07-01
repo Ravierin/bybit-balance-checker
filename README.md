@@ -37,7 +37,7 @@ Account: "example1@example.com":
 
 #### Для Windows:
 
-Для сборки под Windows, можно использовать `go build`:
+Для сборки под Windows:
 
 ```bash
 GOOS=windows GOARCH=amd64 go build -o bybit-balance-checker.exe main.go
