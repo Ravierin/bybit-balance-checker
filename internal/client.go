@@ -12,12 +12,12 @@ func CreateHTTPClient(api models.API) (*http.Client, error) {
 	proxyURL := fmt.Sprintf("socks5://%s:%s@%s:%s", api.ProxyUsername, api.ProxyPassword, api.ProxyIP, api.ProxyPort)
 	url, err := url.Parse(proxyURL)
 	if err != nil {
-		return nil, fmt.Errorf("error parsing proxy URL: %v", err)
+		return nil, fmt.Errorf("failed to parse proxy URL: %v", err)
 	}
 
 	dialer, err := proxy.FromURL(url, proxy.Direct)
 	if err != nil {
-		return nil, fmt.Errorf("error creating dialer: %v", err)
+		return nil, fmt.Errorf("failed to create proxy dialer: %v", err)
 	}
 
 	httpTransport := &http.Transport{
