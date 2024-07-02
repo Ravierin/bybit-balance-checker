@@ -1,4 +1,2 @@
-[
-  {"apiKey": "YOUR_API_KEY", "apiSecret": "YOUR_SECRET_KEY", "account": "example1@example.com"},
-  {"apiKey": "YOUR_API_KEY", "apiSecret": "YOUR_SECRET_KEY", "account": "example2@example.com"}
-]
+apiKey=YOUR_API_KEY;apiSecret=YOUR_SECRET_KEY;account=example1@example.com;proxy=IP:PORT:LOGIN:PASSWORD
+apiKey=YOUR_API_KEY;apiSecret=YOUR_SECRET_KEY;account=example2@example.com;proxy=IP:PORT:LOGIN:PASSWORD
