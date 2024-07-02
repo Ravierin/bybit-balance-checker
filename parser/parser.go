@@ -7,6 +7,8 @@ import (
 )
 
 func ParseConfig(fileContent string) ([]models.API, error) {
+
+	fileContent = strings.ReplaceAll(fileContent, "\r", "")
 	lines := strings.Split(fileContent, "\n")
 	var accounts []models.API
 
