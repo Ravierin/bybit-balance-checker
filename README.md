@@ -25,10 +25,19 @@
    apiKey=YOUR_API_KEY;apiSecret=YOUR_SECRET_KEY;account=example2@example.com;proxy=IP:PORT:LOGIN:PASSWORD
    и т.д.
    ```
-4. **Сборка**: выполните следующие команды для сборки и запуска проекта:
+4. **Сборка**: выполните следующие команды для сборки в исполняемый файл:
+
+   #### Для Windows:
+   ```bash
+   go build -o bybit-balance-checker.exe main.go
+   ```
+   #### Для macOS:
+   ```bash
+   go build -o bybit-balance-checker main.go
+   ```
+   #### Для Linux:
    ```bash
    go build -o bybit-balance-checker main.go 
-   ./bybit-balance-checker
    ```
    После этого для запуска будет достаточно исользовать исполняемый файл и config.txt, поэтому для удобства можно будет перенести это в отдельную директорию.
    
