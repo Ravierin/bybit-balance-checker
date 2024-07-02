@@ -34,28 +34,18 @@
 3. **Конфигурация**: измените или создайте файл `config.txt` в формате JSON, где указываете `apiKey`, `apiSecret` и `account` для каждого аккаунта Bybit.
 
    Пример `config.txt`:
-   ```json
-   [
-     {"apiKey": "YOUR_API_KEY", "apiSecret": "YOUR_SECRET_KEY", "account": "example1@example.com"},
-     {"apiKey": "YOUR_API_KEY", "apiSecret": "YOUR_SECRET_KEY", "account": "example2@example.com"}
-   ]
-   
-4. **Запуск**: выполните следующие команды для сборки и запуска проекта:
+   ```makefile
+   apiKey=YOUR_API_KEY;apiSecret=YOUR_SECRET_KEY;account=example1@example.com;proxy=IP:PORT:LOGIN:PASSWORD
+   ```
+5. **Запуск**: выполните следующие команды для сборки и запуска проекта:
    ```bash
    go build -o bybit-balance-checker main.go 
    ./bybit-balance-checker
    ```
-#### Запись результатов
+   
+#### Примечания
 
-Результаты проверки балансов будут сохранены в файл `output.txt`, который будет создан после выполнения программы.
-Каждый аккаунт имеет свою секцию в формате:
-
-Account: "example1@example.com":
-   - BTC: 1.2345
-   - ETH: 5.6789
-
-#### Примечания:
-*Убедитесь, что у вас есть аккаунт на Bybit и доступ к API.
-*Проверьте, что ваш прокси сервер доступен и настроен правильно в конфигурационном файле.
-*Результаты будут сохранены в файле output.txt в корневой директории проекта.
+   - Убедитесь, что у вас есть аккаунт на Bybit и весь доступ к API.
+   - Проверьте, что ваш прокси сервер доступен и настроен правильно в конфигурационном файле.
+   - Результаты будут сохранены в созданный файл output.txt в директории с скриптом.
 
