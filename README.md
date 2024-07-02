@@ -13,29 +13,11 @@
    git clone https://github.com/Ravierin/bybit-balance-checker.git
    cd bybit-balance-checker
    ```
-2. **Установка Go**: Убедитесь, что у вас установлен Go. Если Go не установлен, следуйте инструкциям ниже для вашей операционной системы.
-
-   ### Linux:
-
-   Установите Go через пакетный менеджер вашей системы. Например, для Ubuntu:
-   ```bash
-   sudo apt install golang
-   ```
-   ### Для macOS:
-
-   Установите Go через Homebrew:
-   ```bash
-   brew install go
-   ```
-   #### Для Windows:
-
-   Скачайте установочный файл с [официального сайта Go](https://go.dev/dl/) и следуйте инструкциям для установки.
-
-3. **Установка зависимостей**:  вас должен быть установлен Go. Выполните команду для установки зависимостей:
+2. **Установка зависимостей**:  вас должен быть установлен Golang версии 1.22.4. Выполните команду для установки зависимостей:
    ```bash
    go mod tidy
    ```
-4. **Конфигурация**: создайте или откройте файл `config.txt` в той же директории где проект, где указываете `apiKey`, `apiSecret`, `account` и `proxy` для каждого аккаунта Bybit.
+3. **Конфигурация**: создайте или откройте файл `config.txt` в той же директории где проект, где указываете `apiKey`, `apiSecret`, `account` и `proxy` для каждого аккаунта Bybit.
 
    Пример `config.txt`:
    ```makefile
@@ -43,7 +25,7 @@
    apiKey=YOUR_API_KEY;apiSecret=YOUR_SECRET_KEY;account=example2@example.com;proxy=IP:PORT:LOGIN:PASSWORD
    и т.д.
    ```
-5. **Сборка**: выполните следующие команды для сборки и запуска проекта:
+4. **Сборка**: выполните следующие команды для сборки и запуска проекта:
    ```bash
    go build -o bybit-balance-checker main.go 
    ./bybit-balance-checker
