@@ -2,12 +2,67 @@ package main
 
 import (
 	"bybit-balance-checker/api"
+	"bybit-balance-checker/models"
 	"bybit-balance-checker/parser"
 	"fmt"
 	"io/ioutil"
 	"os"
 	"strconv"
+	"sync"
 )
+
+func fetchAndProcessBalance(acc models.API, wg *sync.WaitGroup, outputChan chan<- string) {
+	defer wg.Done()
+
+	var formattedOutput string
+	formattedOutput += fmt.Sprintf("Account: \"%s\":\n", acc.Account)
+
+	fundingBalance, err := api.FetchFundingBalance(acc)
+	if err != nil {
+		fmt.Printf("Error fetching funding balance for account %s: %v\n", acc.Account, err)
+		return
+	}
+
+	hasSignificantBalance := false
+	fundingTokensOverOne := false
+	formattedOutput += "  Funding:\n"
+	for _, balance := range fundingBalance {
+		walletBalance, _ := strconv.ParseFloat(balance.WalletBalance, 64)
+		if walletBalance >= 1.0 {
+			formattedOutput += fmt.Sprintf("   - %s: %s\n", balance.Coin, balance.WalletBalance)
+			fundingTokensOverOne = true
+			hasSignificantBalance = true
+		}
+	}
+	if !fundingTokensOverOne {
+		formattedOutput += "   You homeless man(There are no coin)\n"
+	}
+
+	unifiedBalance, err := api.FetchUnifiedBalance(acc)
+	if err != nil {
+		fmt.Printf("Error fetching unified balance for account %s: %v\n", acc.Account, err)
+		return
+	}
+
+	unifiedTokensOverOne := false
+	formattedOutput += "  Unified:\n"
+	for _, balance := range unifiedBalance {
+		walletBalance, _ := strconv.ParseFloat(balance.WalletBalance, 64)
+		if walletBalance >= 1.0 {
+			formattedOutput += fmt.Sprintf("   - %s: %s\n", balance.Coin, balance.WalletBalance)
+			unifiedTokensOverOne = true
+			hasSignificantBalance = true
+		}
+	}
+	if !unifiedTokensOverOne {
+		formattedOutput += "   You homeless man(There are no coin)\n"
+	}
+
+	if hasSignificantBalance {
+		finalOutput := fmt.Sprintf("\n%s\n", formattedOutput)
+		outputChan <- finalOutput
+	}
+}
 
 func main() {
 	fileContentBytes, err := ioutil.ReadFile("config.txt")
@@ -29,49 +84,19 @@ func main() {
 	}
 	defer outputFile.Close()
 
+	var wg sync.WaitGroup
+	outputChan := make(chan string, len(accounts))
+
 	for _, acc := range accounts {
-		var formattedOutput string
-		formattedOutput += fmt.Sprintf("Account: \"%s\":\n", acc.Account)
+		wg.Add(1)
+		go fetchAndProcessBalance(acc, &wg, outputChan)
+	}
 
-		fundingBalance, err := api.FetchFundingBalance(acc)
-		if err != nil {
-			fmt.Printf("Error fetching funding balance for account %s: %v\n", acc.Account, err)
-			continue
-		}
-		fundingTokensOverOne := false
-		formattedOutput += "  Funding:\n"
-		for _, balance := range fundingBalance {
-			walletBalance, _ := strconv.ParseFloat(balance.WalletBalance, 64)
-			if walletBalance >= 1.0 {
-				formattedOutput += fmt.Sprintf("   - %s: %s\n", balance.Coin, balance.WalletBalance)
-				fundingTokensOverOne = true
-			}
-		}
-		if !fundingTokensOverOne {
-			formattedOutput += "   You homeless man(There are no coin)\n"
-		}
+	wg.Wait()
+	close(outputChan)
 
-		unifiedBalance, err := api.FetchUnifiedBalance(acc)
-		if err != nil {
-			fmt.Printf("Error fetching unified balance for account %s: %v\n", acc.Account, err)
-			continue
-		}
-		unifiedTokensOverOne := false
-		formattedOutput += "  Unified:\n"
-		for _, balance := range unifiedBalance {
-			walletBalance, _ := strconv.ParseFloat(balance.WalletBalance, 64)
-			if walletBalance >= 0.0004 {
-				formattedOutput += fmt.Sprintf("   - %s: %s\n", balance.Coin, balance.WalletBalance)
-				unifiedTokensOverOne = true
-			}
-		}
-		if !unifiedTokensOverOne {
-			formattedOutput += "   You homeless man(There are no coin)\n"
-		}
-
-		finalOutput := fmt.Sprintf("\n%s\n", formattedOutput)
-
-		if _, err := outputFile.WriteString(finalOutput); err != nil {
+	for output := range outputChan {
+		if _, err := outputFile.WriteString(output); err != nil {
 			fmt.Println("Error writing to output file:", err)
 			continue
 		}
