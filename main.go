@@ -35,7 +35,7 @@ func fetchAndProcessBalance(acc models.API, wg *sync.WaitGroup, outputChan chan<
 		}
 	}
 	if !fundingTokensOverOne {
-		formattedOutput += "   You homeless man(There are no coin)\n"
+		formattedOutput += "   You homeless man(There are no coin < 1)\n"
 	}
 
 	unifiedBalance, err := api.FetchUnifiedBalance(acc)
@@ -55,7 +55,7 @@ func fetchAndProcessBalance(acc models.API, wg *sync.WaitGroup, outputChan chan<
 		}
 	}
 	if !unifiedTokensOverOne {
-		formattedOutput += "   You homeless man(There are no coin)\n"
+		formattedOutput += "   You homeless man(There are no coin < 1)\n"
 	}
 
 	if hasSignificantBalance {
