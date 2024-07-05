@@ -8,7 +8,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strconv"
-	"time"
 )
 
 func FetchUnifiedBalance(api models.API) ([]models.UnifiedCoin, error) {
@@ -17,7 +16,12 @@ func FetchUnifiedBalance(api models.API) ([]models.UnifiedCoin, error) {
 	queryString := "accountType=UNIFIED"
 	method := "GET"
 
-	timestamp := strconv.FormatInt(time.Now().UnixNano()/1e6, 10)
+	serverTime, err := internal.GetServerTime()
+	if err != nil {
+		return nil, fmt.Errorf("error getting server time: %v", err)
+	}
+
+	timestamp := strconv.FormatInt(serverTime, 10)
 	recvWindow := "20000"
 
 	signature := internal.GenerateSignature(api.APISecret, api.APIKey, timestamp, recvWindow, queryString)
