@@ -48,3 +48,7 @@ type UnifiedResponse struct {
 	RetMsg  string        `json:"retMsg"`
 	Result  UnifiedResult `json:"result"`
 }
+
+type ServerTimeResponse struct {
+	TimeNow string `json:"time_now"`
+}
