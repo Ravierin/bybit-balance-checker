@@ -48,7 +48,7 @@ func fetchAndProcessBalance(acc models.API, wg *sync.WaitGroup, outputChan chan<
 	formattedOutput += "  Unified:\n"
 	for _, balance := range unifiedBalance {
 		walletBalance, _ := strconv.ParseFloat(balance.WalletBalance, 64)
-		if walletBalance >= 1.0 {
+		if walletBalance >= 1 { // Отвечает за кол-ва монеток
 			formattedOutput += fmt.Sprintf("   - %s: %s\n", balance.Coin, balance.WalletBalance)
 			unifiedTokensOverOne = true
 			hasSignificantBalance = true
